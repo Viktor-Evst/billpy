@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+       <jpa:repositories base-package="com.vevstratov.billpy.repository"/>
+       <context:annotation-config />
+       <context:component-scan base-package="com.vevstratov.billpy"/>
+       <context:property-placeholder location="classpath*:properties/*.properties"/>
+       <tx:annotation-driven transaction-manager="transactionManager" />
+
+       <bean id="entityManagerFactory"
+             class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+              <property name="packagesToScan" value="com.vevstratov.billpy.*"/>
+              <property name="persistenceUnitName" value="billpyPersistentUnit" />
+              <property name="dataSource" ref="dataSource" />
+              <property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
+              <property name="jpaDialect" ref="jpaDialect" />
+       </bean>
+
+       <bean id="jpaVendorAdapter"
+             class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+              <property name="database" value="POSTGRESQL" />
+              <property name="databasePlatform" value="org.hibernate.dialect.PostgreSQLDialect" />
+       </bean>
+
+       <bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
+
+       <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+              <property name="entityManagerFactory" ref="entityManagerFactory" />
+              <property name="dataSource" ref="dataSource" />
+              <property name="jpaDialect" ref="jpaDialect" />
+       </bean>
+
+       <tx:annotation-driven transaction-manager="transactionManager" />
+
+       <bean id="dataSource"
+             class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+              <property name="driverClassName" value="org.postgresql.Driver" />
+              <property name="url" value="${jpa.url}" />
+              <property name="username" value="${jpa.username}" />
+              <property name="password" value="${jpa.password}" />
+       </bean>
+</beans>
