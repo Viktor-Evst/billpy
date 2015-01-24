@@ -3,6 +3,7 @@ package com.vevstratov.billpy.domain;
 import javax.persistence.*;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Viktor Evstratov on 23.01.2015.
@@ -12,11 +13,11 @@ import java.util.Date;
 public class Bill {
     private Long id;
     private String text;
-    private Double amount;
     private byte[] photo;
     private Date date;
     private Seller seller;
     private Buyer buyer;
+    private List<BillEntry> entries;
 
     public Bill() {
     }
@@ -37,14 +38,6 @@ public class Bill {
 
     public void setText(String text) {
         this.text = text;
-    }
-
-    public Double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Double amount) {
-        this.amount = amount;
     }
 
     @Basic(fetch = FetchType.LAZY)
@@ -83,12 +76,20 @@ public class Bill {
         this.buyer = buyer;
     }
 
+    @OneToMany(cascade = CascadeType.ALL)
+    public List<BillEntry> getEntries() {
+        return entries;
+    }
+
+    public void setEntries(List<BillEntry> entries) {
+        this.entries = entries;
+    }
+
     @Override
     public String toString() {
         return "Bill{" +
                 "id=" + id +
                 ", text='" + text + '\'' +
-                ", amount=" + amount +
                 ", photo=" + Arrays.toString(photo) +
                 ", date=" + date +
                 ", seller=" + seller.getName() +

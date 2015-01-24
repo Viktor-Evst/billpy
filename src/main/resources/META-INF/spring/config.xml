@@ -21,8 +21,8 @@
 
     <bean id="jpaVendorAdapter"
           class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-        <property name="database" value="POSTGRESQL"/>
-        <property name="databasePlatform" value="org.hibernate.dialect.PostgreSQLDialect"/>
+        <property name="database" value="${jpaVendorAdapter.database}"/>
+        <property name="databasePlatform" value="${jpaVendorAdapter.databasePlatform}"/>
         <property name="generateDdl" value="true"/>
     </bean>
 
@@ -38,9 +38,9 @@
 
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="org.postgresql.Driver"/>
-        <property name="url" value="${jpa.url}"/>
-        <property name="username" value="${jpa.username}"/>
-        <property name="password" value="${jpa.password}"/>
+        <property name="driverClassName" value="${datasource.driverClassName}"/>
+        <property name="url" value="${datasource.url}"/>
+        <property name="username" value="${datasource.username}"/>
+        <property name="password" value="${datasource.password}"/>
     </bean>
 </beans>
