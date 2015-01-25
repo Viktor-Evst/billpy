@@ -55,10 +55,13 @@ public class App {
         }};
 
         Bill bill = new Bill();
-        bill.setBuyer(buyer);
-        bill.setSeller(seller);
         bill.setEntries(billEntries);
         System.out.println("bill = " + bill);
         app.billr.save(bill);
+
+        seller.addBill(bill);
+        buyer.addBill(bill);
+        app.sr.save(seller);
+        app.br.save(buyer);
     }
 }

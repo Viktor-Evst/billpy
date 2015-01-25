@@ -70,4 +70,8 @@ public class Buyer {
                 ", surname='" + surname + '\'' +
                 '}';
     }
+
+    public void addBill(Bill bill) {
+        bills.add(bill);
+    }
 }

@@ -59,4 +59,8 @@ public class Seller {
                 ", name='" + name + '\'' +
                 '}';
     }
+
+    public void addBill(Bill bill) {
+        bills.add(bill);
+    }
 }

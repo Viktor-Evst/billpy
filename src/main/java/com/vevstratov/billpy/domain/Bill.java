@@ -92,8 +92,6 @@ public class Bill {
                 ", text='" + text + '\'' +
                 ", photo=" + Arrays.toString(photo) +
                 ", date=" + date +
-                ", seller=" + seller.getName() +
-                ", user=" + buyer.getName() +
                 '}';
     }
 }
