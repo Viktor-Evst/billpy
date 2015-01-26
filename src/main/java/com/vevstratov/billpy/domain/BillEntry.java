@@ -11,8 +11,7 @@ public class BillEntry {
     private String name;
     private String text;
     private Integer amount;
-    private Float pricePerUnit;
-    private Bill bill;
+    private Double pricePerUnit;
 
     public BillEntry() {
     }
@@ -43,11 +42,11 @@ public class BillEntry {
         this.amount = amount;
     }
 
-    public Float getPricePerUnit() {
+    public Double getPricePerUnit() {
         return pricePerUnit;
     }
 
-    public void setPricePerUnit(Float pricePerUnit) {
+    public void setPricePerUnit(Double pricePerUnit) {
         this.pricePerUnit = pricePerUnit;
     }
 
@@ -59,12 +58,19 @@ public class BillEntry {
         this.text = text;
     }
 
-    @ManyToOne
-    public Bill getBill() {
-        return bill;
+    @Transient
+    public Double getTotal() {
+        return getAmount() * getPricePerUnit();
     }
 
-    public void setBill(Bill bill) {
-        this.bill = bill;
+    @Override
+    public String toString() {
+        return "BillEntry{" +
+                "pricePerUnit=" + pricePerUnit +
+                ", amount=" + amount +
+                ", text='" + text + '\'' +
+                ", name='" + name + '\'' +
+                ", id=" + id +
+                '}';
     }
 }

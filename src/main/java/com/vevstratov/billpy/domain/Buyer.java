@@ -1,7 +1,10 @@
 package com.vevstratov.billpy.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by user on 23.01.2015.
@@ -9,22 +12,21 @@ import java.util.List;
 
 @Entity
 public class Buyer {
-    private Integer id;
+    private Long id;
     private String name;
     private String surname;
-    private List<Seller> sellers;
-    private List<Bill> bills;
+    private List<Bill> bills = new ArrayList<Bill>();
 
     public Buyer() {
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -44,22 +46,17 @@ public class Buyer {
         this.surname = surname;
     }
 
-    @ManyToMany(mappedBy = "bills")
-    public List<Seller> getSellers() {
-        return sellers;
-    }
-
-    public void setSellers(List<Seller> sellers) {
-        this.sellers = sellers;
-    }
-
-    @OneToMany
+    @OneToMany(mappedBy = "buyer", cascade = CascadeType.ALL)
     public List<Bill> getBills() {
         return bills;
     }
 
     public void setBills(List<Bill> bills) {
         this.bills = bills;
+    }
+
+    public void addBill(Bill bill) {
+        bills.add(bill);
     }
 
     @Override
@@ -69,9 +66,5 @@ public class Buyer {
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 '}';
-    }
-
-    public void addBill(Bill bill) {
-        bills.add(bill);
     }
 }

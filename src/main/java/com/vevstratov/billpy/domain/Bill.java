@@ -1,6 +1,7 @@
 package com.vevstratov.billpy.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -15,9 +16,9 @@ public class Bill {
     private String text;
     private byte[] photo;
     private Date date;
-    private Seller seller;
+    private List<BillEntry> entries = new ArrayList<BillEntry>();
     private Buyer buyer;
-    private List<BillEntry> entries;
+    private Seller seller;
 
     public Bill() {
     }
@@ -58,7 +59,16 @@ public class Bill {
         this.date = date;
     }
 
-    @ManyToOne
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    public List<BillEntry> getEntries() {
+        return entries;
+    }
+
+    public void setEntries(List<BillEntry> entries) {
+        this.entries = entries;
+    }
+
+    @ManyToOne(cascade = CascadeType.ALL)
     public Seller getSeller() {
         return seller;
     }
@@ -76,13 +86,12 @@ public class Bill {
         this.buyer = buyer;
     }
 
-    @OneToMany(cascade = CascadeType.ALL)
-    public List<BillEntry> getEntries() {
-        return entries;
-    }
-
-    public void setEntries(List<BillEntry> entries) {
-        this.entries = entries;
+    @Transient
+    public Double getTotal() {
+        return entries.stream()
+                .mapToDouble(BillEntry::getTotal)
+                .reduce(0., (sum, item)
+                        -> sum + item);
     }
 
     @Override
@@ -92,6 +101,7 @@ public class Bill {
                 ", text='" + text + '\'' +
                 ", photo=" + Arrays.toString(photo) +
                 ", date=" + date +
+                ", entries=" + entries +
                 '}';
     }
 }

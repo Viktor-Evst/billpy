@@ -7,12 +7,18 @@ import com.vevstratov.billpy.domain.Seller;
 import com.vevstratov.billpy.repository.BillRepository;
 import com.vevstratov.billpy.repository.BuyerRepository;
 import com.vevstratov.billpy.repository.SellerRepository;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceUnit;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Viktor Evstratov on 23.01.2015.
@@ -36,32 +42,37 @@ public class App {
         Buyer buyer = new Buyer();
         buyer.setName("John");
         buyer.setSurname("Smith");
-        System.out.println("buyer = " + buyer);
-        app.br.save(buyer);
+
+        Buyer buyer2 = new Buyer();
+        buyer2.setName("John");
+        buyer2.setSurname("Smith II");
 
         Seller seller = new Seller();
         seller.setName("Hasbro");
-        System.out.println("seller = " + seller);
-        app.sr.save(seller);
 
         ArrayList<BillEntry> billEntries = new ArrayList<BillEntry>() {{
             for (int i = 0; i < 10; ++i) {
                 BillEntry e = new BillEntry();
                 e.setText("Entry#" + i);
                 e.setAmount(i);
-                e.setPricePerUnit((float) (i * 100));
+                e.setPricePerUnit((double) (i * 100));
                 add(e);
             }
         }};
-
-        Bill bill = new Bill();
+        final Bill bill = new Bill();
         bill.setEntries(billEntries);
-        System.out.println("bill = " + bill);
-        app.billr.save(bill);
-
+        bill.setSeller(seller);
+        bill.setBuyer(buyer);
         seller.addBill(bill);
         buyer.addBill(bill);
-        app.sr.save(seller);
-        app.br.save(buyer);
+        buyer2 = app.br.save(buyer2);
+        buyer = app.br.save(buyer);
+        buyer = app.br.findOne(buyer.getId());
+
+        Buyer buyerByBill = app.br.findBuyerByBill(bill);
+        System.out.println("buyerByBill = " + buyerByBill);
+        List<Bill> billsByBuyer = app.billr.findBillsByBuyer(buyerByBill);
+        System.out.println("billsByBuyer = " + billsByBuyer);
+        System.out.println("bill.getTotal() = " + bill.getTotal());
     }
 }

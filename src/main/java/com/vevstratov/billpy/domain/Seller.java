@@ -1,7 +1,10 @@
 package com.vevstratov.billpy.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by user on 23.01.2015.
@@ -10,8 +13,7 @@ import java.util.List;
 public class Seller {
     private Long id;
     private String name;
-    private List<Bill> bills;
-    private List<Buyer> clients;
+    private List<Bill> bills = new ArrayList<Bill>();
 
     public Seller() {
     }
@@ -43,13 +45,8 @@ public class Seller {
         this.bills = bills;
     }
 
-    @ManyToMany(mappedBy = "bills")
-    public List<Buyer> getClients() {
-        return clients;
-    }
-
-    public void setClients(List<Buyer> clients) {
-        this.clients = clients;
+    public void addBill(Bill bill) {
+        bills.add(bill);
     }
 
     @Override
@@ -58,9 +55,5 @@ public class Seller {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
-    }
-
-    public void addBill(Bill bill) {
-        bills.add(bill);
     }
 }
