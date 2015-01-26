@@ -7,16 +7,11 @@ import com.vevstratov.billpy.domain.Seller;
 import com.vevstratov.billpy.repository.BillRepository;
 import com.vevstratov.billpy.repository.BuyerRepository;
 import com.vevstratov.billpy.repository.SellerRepository;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
 import java.util.ArrayList;
 import java.util.List;
 
