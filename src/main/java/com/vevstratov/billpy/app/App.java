@@ -69,5 +69,6 @@ public class App {
         List<Bill> billsByBuyer = app.billr.findBillsByBuyer(buyerByBill);
         System.out.println("billsByBuyer = " + billsByBuyer);
         System.out.println("bill.getTotal() = " + bill.getTotal());
+        System.out.println("app.sr.getSellerByBill(bill) = " + app.sr.getSellerByBill(bill));
     }
 }
