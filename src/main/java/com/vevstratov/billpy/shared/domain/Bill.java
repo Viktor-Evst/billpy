@@ -1,4 +1,4 @@
-package com.vevstratov.billpy.domain;
+package com.vevstratov.billpy.shared.domain;
 
 import javax.persistence.*;
 import java.util.ArrayList;

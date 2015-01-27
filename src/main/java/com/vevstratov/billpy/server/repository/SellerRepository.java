@@ -1,7 +1,7 @@
-package com.vevstratov.billpy.repository;
+package com.vevstratov.billpy.server.repository;
 
-import com.vevstratov.billpy.domain.Bill;
-import com.vevstratov.billpy.domain.Seller;
+import com.vevstratov.billpy.shared.domain.Bill;
+import com.vevstratov.billpy.shared.domain.Seller;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

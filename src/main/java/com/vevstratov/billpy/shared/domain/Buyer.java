@@ -1,21 +1,21 @@
-package com.vevstratov.billpy.domain;
+package com.vevstratov.billpy.shared.domain;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by user on 23.01.2015.
  */
+
 @Entity
-public class Seller {
+public class Buyer {
     private Long id;
     private String name;
+    private String surname;
     private List<Bill> bills = new ArrayList<Bill>();
 
-    public Seller() {
+    public Buyer() {
     }
 
     @Id
@@ -36,7 +36,15 @@ public class Seller {
         this.name = name;
     }
 
-    @OneToMany
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    @OneToMany(mappedBy = "buyer", cascade = CascadeType.ALL)
     public List<Bill> getBills() {
         return bills;
     }
@@ -51,9 +59,10 @@ public class Seller {
 
     @Override
     public String toString() {
-        return "Seller{" +
+        return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
                 '}';
     }
 }
