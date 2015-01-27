@@ -5,13 +5,14 @@
   <groupId>com.vevstratov.billpy</groupId>
   <artifactId>billpy</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
+  <packaging>war</packaging>
 
   <name>billpy</name>
   <url>http://maven.apache.org</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <spring.version>4.1.4.RELEASE</spring.version>
   </properties>
 
   <dependencies>
@@ -19,6 +20,18 @@
       <groupId>org.springframework.data</groupId>
       <artifactId>spring-data-jpa</artifactId>
       <version>1.7.1.RELEASE</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>${spring.version}</version>
     </dependency>
 
     <dependency>
@@ -55,6 +68,7 @@
   </dependencies>
 
   <build>
+    <finalName>billpy</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

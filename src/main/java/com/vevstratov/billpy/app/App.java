@@ -31,7 +31,7 @@ public class App {
     BillRepository billr;
 
     public static void main(String[] args) {
-        ApplicationContext context = new ClassPathXmlApplicationContext("META-INF/spring/config.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("WEB-INF/applicationContext.xml");
         App app = context.getBean(App.class);
 
         Buyer buyer = new Buyer();
