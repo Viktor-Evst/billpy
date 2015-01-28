@@ -1,6 +1,7 @@
 package com.vevstratov.billpy.shared.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -11,7 +12,7 @@ import java.util.List;
  */
 
 @Entity
-public class Bill {
+public class Bill implements Serializable {
     private Long id;
     private String text;
     private byte[] photo;

@@ -13,7 +13,7 @@ public class Buyer {
     private Long id;
     private String name;
     private String surname;
-    private List<Bill> bills = new ArrayList<Bill>();
+    private List<Bill> bills = new ArrayList<>();
 
     public Buyer() {
     }
