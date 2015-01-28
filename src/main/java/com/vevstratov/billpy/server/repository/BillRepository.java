@@ -1,7 +1,7 @@
 package com.vevstratov.billpy.server.repository;
 
 import com.vevstratov.billpy.shared.domain.Bill;
-import com.vevstratov.billpy.shared.domain.Buyer;
+import com.vevstratov.billpy.shared.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -11,5 +11,5 @@ import java.util.List;
  */
 public interface BillRepository extends JpaRepository<Bill, Long> {
 
-    List<Bill> findBillsByBuyer(Buyer buyer);
+    List<Bill> findBillsByBuyer(User user);
 }

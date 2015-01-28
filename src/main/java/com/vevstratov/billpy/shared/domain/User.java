@@ -9,13 +9,13 @@ import java.util.List;
  */
 
 @Entity
-public class Buyer {
+public class User {
     private Long id;
     private String name;
     private String surname;
     private List<Bill> bills = new ArrayList<>();
 
-    public Buyer() {
+    public User() {
     }
 
     @Id
@@ -44,7 +44,7 @@ public class Buyer {
         this.surname = surname;
     }
 
-    @OneToMany(mappedBy = "buyer", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     public List<Bill> getBills() {
         return bills;
     }

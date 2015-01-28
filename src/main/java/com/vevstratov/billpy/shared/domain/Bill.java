@@ -18,7 +18,7 @@ public class Bill implements Serializable {
     private byte[] photo;
     private Date date;
     private List<BillEntry> entries = new ArrayList<BillEntry>();
-    private Buyer buyer;
+    private User user;
     private Seller seller;
 
     public Bill() {
@@ -79,12 +79,12 @@ public class Bill implements Serializable {
     }
 
     @ManyToOne
-    public Buyer getBuyer() {
-        return buyer;
+    public User getUser() {
+        return user;
     }
 
-    public void setBuyer(Buyer buyer) {
-        this.buyer = buyer;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Transient

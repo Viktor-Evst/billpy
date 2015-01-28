@@ -2,10 +2,10 @@ package com.vevstratov.billpy.app;
 
 import com.vevstratov.billpy.shared.domain.Bill;
 import com.vevstratov.billpy.shared.domain.BillEntry;
-import com.vevstratov.billpy.shared.domain.Buyer;
+import com.vevstratov.billpy.shared.domain.User;
 import com.vevstratov.billpy.shared.domain.Seller;
 import com.vevstratov.billpy.server.repository.BillRepository;
-import com.vevstratov.billpy.server.repository.BuyerRepository;
+import com.vevstratov.billpy.server.repository.UserRepository;
 import com.vevstratov.billpy.server.repository.SellerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -13,16 +13,17 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by Viktor Evstratov on 23.01.2015.
  */
-@Component
+@Component("mainApplication")
 public class App {
 
     @Autowired
-    BuyerRepository br;
+    UserRepository br;
 
     @Autowired
     SellerRepository sr;
@@ -31,16 +32,17 @@ public class App {
     BillRepository billr;
 
     public static void main(String[] args) {
-        ApplicationContext context = new ClassPathXmlApplicationContext("WEB-INF/applicationContext.xml");
-        App app = context.getBean(App.class);
+        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:*applicationContext.xml");
+        System.out.println("context.getBeanDefinitionNames() = " + Arrays.toString(context.getBeanDefinitionNames()));
+        App app = (App) context.getBean("mainApplication");
 
-        Buyer buyer = new Buyer();
-        buyer.setName("John");
-        buyer.setSurname("Smith");
+        User user = new User();
+        user.setName("John");
+        user.setSurname("Smith");
 
-        Buyer buyer2 = new Buyer();
-        buyer2.setName("John");
-        buyer2.setSurname("Smith II");
+        User user2 = new User();
+        user2.setName("John");
+        user2.setSurname("Smith II");
 
         Seller seller = new Seller();
         seller.setName("Hasbro");
@@ -57,16 +59,16 @@ public class App {
         final Bill bill = new Bill();
         bill.setEntries(billEntries);
         bill.setSeller(seller);
-        bill.setBuyer(buyer);
+        bill.setUser(user);
         seller.addBill(bill);
-        buyer.addBill(bill);
-        buyer2 = app.br.save(buyer2);
-        buyer = app.br.save(buyer);
-        buyer = app.br.findOne(buyer.getId());
+        user.addBill(bill);
+        user2 = app.br.save(user2);
+        user = app.br.save(user);
+        user = app.br.findOne(user.getId());
 
-        Buyer buyerByBill = app.br.findBuyerByBill(bill);
-        System.out.println("buyerByBill = " + buyerByBill);
-        List<Bill> billsByBuyer = app.billr.findBillsByBuyer(buyerByBill);
+        User userByBill = app.br.findUserByBill(bill);
+        System.out.println("buyerByBill = " + userByBill);
+        List<Bill> billsByBuyer = app.billr.findBillsByBuyer(userByBill);
         System.out.println("billsByBuyer = " + billsByBuyer);
         System.out.println("bill.getTotal() = " + bill.getTotal());
         System.out.println("app.sr.getSellerByBill(bill) = " + app.sr.getSellerByBill(bill));

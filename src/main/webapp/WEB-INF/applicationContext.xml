@@ -61,6 +61,7 @@
         <security:intercept-url pattern="/**" access="ROLE_USER" />
     </security:http>
 
+<!--
     <security:authentication-manager>
         <security:authentication-provider>
             <security:user-service>
@@ -68,9 +69,10 @@
             </security:user-service>
         </security:authentication-provider>
     </security:authentication-manager>
-<!--    <security:authentication-manager>
+-->
+    <security:authentication-manager>
         <security:authentication-provider>
             <security:jdbc-user-service data-source-ref="dataSource"/>
         </security:authentication-provider>
-    </security:authentication-manager>-->
+    </security:authentication-manager>
 </beans>

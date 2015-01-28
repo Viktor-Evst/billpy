@@ -2,11 +2,9 @@ package com.vevstratov.billpy.server.service;
 
 import com.vevstratov.billpy.client.DataService;
 import com.vevstratov.billpy.server.repository.BillRepository;
-import com.vevstratov.billpy.server.repository.BuyerRepository;
+import com.vevstratov.billpy.server.repository.UserRepository;
 import com.vevstratov.billpy.server.repository.SellerRepository;
 import com.vevstratov.billpy.shared.domain.Bill;
-import com.vevstratov.billpy.shared.domain.Buyer;
-import com.vevstratov.billpy.shared.domain.Seller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class DataServiceImpl implements DataService {
 
     @Autowired
-    BuyerRepository br;
+    UserRepository br;
 
     @Autowired
     SellerRepository sr;
