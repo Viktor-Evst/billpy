@@ -37,12 +37,12 @@ public class App {
         App app = (App) context.getBean("mainApplication");
 
         User user = new User();
-        user.setName("John");
-        user.setSurname("Smith");
+        user.setFirstname("John");
+        user.setLastname("Smith");
 
         User user2 = new User();
-        user2.setName("John");
-        user2.setSurname("Smith II");
+        user2.setFirstname("John");
+        user2.setLastname("Smith II");
 
         Seller seller = new Seller();
         seller.setName("Hasbro");
@@ -68,7 +68,7 @@ public class App {
 
         User userByBill = app.br.findUserByBill(bill);
         System.out.println("buyerByBill = " + userByBill);
-        List<Bill> billsByBuyer = app.billr.findBillsByBuyer(userByBill);
+        List<Bill> billsByBuyer = app.billr.findBillsByUser(userByBill);
         System.out.println("billsByBuyer = " + billsByBuyer);
         System.out.println("bill.getTotal() = " + bill.getTotal());
         System.out.println("app.sr.getSellerByBill(bill) = " + app.sr.getSellerByBill(bill));

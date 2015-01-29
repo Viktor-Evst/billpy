@@ -89,10 +89,15 @@ public class Bill implements Serializable {
 
     @Transient
     public Double getTotal() {
-        return entries.stream()
+        double d = 0;
+        for (BillEntry entry : entries) {
+            d += entry.getTotal();
+        }
+        return d;
+/*        return entries.stream()
                 .mapToDouble(BillEntry::getTotal)
                 .reduce(0., (sum, item)
-                        -> sum + item);
+                        -> sum + item);*/
     }
 
     @Override

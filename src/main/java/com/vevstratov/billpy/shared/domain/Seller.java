@@ -11,7 +11,7 @@ import java.util.List;
 public class Seller {
     private Long id;
     private String name;
-    private List<Bill> bills = new ArrayList<Bill>();
+    private List<Bill> bills = new ArrayList<>();
 
     public Seller() {
     }

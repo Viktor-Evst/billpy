@@ -3,7 +3,9 @@ package com.vevstratov.billpy.client;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import com.vevstratov.billpy.shared.domain.Bill;
-import org.springframework.stereotype.Service;
+import com.vevstratov.billpy.shared.domain.User;
+
+import java.util.List;
 
 /**
  * Created by Viktor Evstratov on 28.01.2015.
@@ -13,4 +15,8 @@ import org.springframework.stereotype.Service;
 public interface DataService extends RemoteService {
 
     void saveBill(Bill bill);
+
+    List<Bill> findBillsByUser(User user);
+
+    User findUserByName(String name);
 }

@@ -1,5 +1,7 @@
 package com.vevstratov.billpy.shared.domain;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,10 +11,13 @@ import java.util.List;
  */
 
 @Entity
-public class User {
+@Table(name = "`user`")
+public class User implements IsSerializable {
     private Long id;
-    private String name;
-    private String surname;
+    private String firstname;
+    private String lastname;
+    private String name;  // login
+    private String password;
     private List<Bill> bills = new ArrayList<>();
 
     public User() {
@@ -28,20 +33,20 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstname(String name) {
+        this.firstname = name;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setLastname(String surname) {
+        this.lastname = surname;
     }
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
@@ -57,12 +62,29 @@ public class User {
         bills.add(bill);
     }
 
+    @Column(unique = true)
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String login) {
+        this.name = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String toString() {
-        return "User{" +
+        return "Buyer{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
+                ", name='" + firstname + '\'' +
+                ", surname='" + lastname + '\'' +
                 '}';
     }
 }
