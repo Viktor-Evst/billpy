@@ -1,12 +1,12 @@
 package com.vevstratov.billpy.app;
 
+import com.vevstratov.billpy.server.repository.BillRepository;
+import com.vevstratov.billpy.server.repository.SellerRepository;
+import com.vevstratov.billpy.server.repository.UserRepository;
 import com.vevstratov.billpy.shared.domain.Bill;
 import com.vevstratov.billpy.shared.domain.BillEntry;
-import com.vevstratov.billpy.shared.domain.User;
 import com.vevstratov.billpy.shared.domain.Seller;
-import com.vevstratov.billpy.server.repository.BillRepository;
-import com.vevstratov.billpy.server.repository.UserRepository;
-import com.vevstratov.billpy.server.repository.SellerRepository;
+import com.vevstratov.billpy.shared.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

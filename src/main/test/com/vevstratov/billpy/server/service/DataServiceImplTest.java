@@ -5,6 +5,7 @@ import com.vevstratov.billpy.shared.domain.Bill;
 import com.vevstratov.billpy.shared.domain.BillEntry;
 import com.vevstratov.billpy.shared.domain.Seller;
 import com.vevstratov.billpy.shared.domain.User;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath*:/applicationContext.xml")
@@ -23,18 +25,20 @@ public class DataServiceImplTest {
 
     @Autowired
     DataService ds;
+    private final User user = new User();
+    private final Seller seller = new Seller();
+    private final Bill bill = new Bill();
+    private ArrayList<BillEntry> billEntries;
 
-    @Test
-    public void testSaveBill() throws Exception {
-        User user = new User();
+    @Before
+    public void setUp() throws Exception {
         user.setFirstname("John");
         user.setLastname("Smith");
         user.setName("john_smith");
 
-        Seller seller = new Seller();
         seller.setName("ACME");
 
-        ArrayList<BillEntry> billEntries = new ArrayList<BillEntry>() {{
+        billEntries = new ArrayList<BillEntry>() {{
             for (int i = 0; i < 10; ++i) {
                 BillEntry e = new BillEntry();
                 e.setText("Entry#" + i);
@@ -43,16 +47,19 @@ public class DataServiceImplTest {
                 add(e);
             }
         }};
-        final Bill bill = new Bill();
+    }
+
+    @Test
+    public void testSaveBill() throws Exception {
         bill.setEntries(billEntries);
         bill.setSeller(seller);
         bill.setUser(user);
-        seller.addBill(bill);
-        user.addBill(bill);
 
         ds.saveBill(bill);
-        user = ds.findUserByName(user.getName());
-        System.out.println("user = " + user);
-//        List<Bill> bills = ds.findBillsByUser(user);
+        User userByName = ds.findUserByName(user.getName());
+        System.out.println("user = " + userByName);
+        System.out.println("user.getBills() = " + userByName.getBills());
+        List<Bill> bills = ds.findBillsByUser(userByName);
+        System.out.println("bills = " + bills);
     }
 }
