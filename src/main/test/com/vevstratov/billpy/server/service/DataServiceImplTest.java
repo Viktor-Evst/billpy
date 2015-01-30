@@ -54,8 +54,9 @@ public class DataServiceImplTest {
         bill.setEntries(billEntries);
         bill.setSeller(seller);
         bill.setUser(user);
-
         ds.saveBill(bill);
+
+
         User userByName = ds.findUserByName(user.getName());
         System.out.println("user = " + userByName);
         System.out.println("user.getBills() = " + userByName.getBills());
